@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="rltlconv">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/rltlconv.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ltl2buchi.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/JFLAP-7.0_With_Source.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/JFLAP-7.0_With_Source.jar!/" />
+    </SOURCES>
+  </library>
+</component>
