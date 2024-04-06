@@ -1,0 +1,2 @@
+#!/bin/bash
+java -Xmx8g -Djava.library.path=/usr/local/lib -cp bin/.:lib/* main.Main '-d=[] (idle && X (! grant0 && ! grant1) -> X idle)' '-d=[] (<> idle)' '-d=[] (X (! grant0) || X ((! request0 && ! idle) U (! request0 && idle)))' '-g=[](X grant1 -> request1)' '-g=! <> ([] (request1 && X (! grant1)))' '-g=[] (X (! grant0 && true || (true && (! grant1))))' '-g=[](request0 && X request1 -> X (X (grant0 && grant1)))' '-g=[](! idle -> X (! grant0 && ! grant1))' '-g=[](request0 -> grant1)' '-g=[](X grant0 -> request0)'

@@ -1,0 +1,2 @@
+#!/bin/bash
+java -Xmx8g -Djava.library.path=/usr/local/lib -cp bin/.:lib/* main.Main '-d=[] (! (g0 || g1)  -> (r0 && X r2 -> X (X (X (g0 && g2)))))' '-d=[] (! (g0 || g1)  -> (! g0 && true || (true && (! g1)) && (! g2)))' '-d=[] (! (g0 || g1)  -> (r1 && X r2 -> X (X (X (g1 && g2)))))' '-d=[] (! (g0 || g1)  -> (r0 && X r1 -> X (X (X (g0 && g1)))))' '-g=[] (r0 -> <> g0)' '-g=[] (r1 -> <> g1) ' '-g=[] (r2 -> <> g2)'

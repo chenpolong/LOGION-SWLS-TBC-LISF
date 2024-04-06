@@ -1,0 +1,71 @@
+#Domains Properities
+!stob_req0
+!stob_req1
+!rtob_ack0
+!rtob_ack1
+!full
+empty
+[]((stob_req0 && !btos_ack0) -> X(stob_req0))
+[](btos_ack0 -> X(!stob_req0))
+[]((stob_req1 && !btos_ack1) -> X(stob_req1))
+[](btos_ack1 -> X(!stob_req1))
+[](!btor_req0 -> X(!rtob_ack0))
+[]((btor_req0 && rtob_ack0) -> X(rtob_ack0))
+[](!btor_req1 -> X(!rtob_ack1))
+[]((btor_req1 && rtob_ack1) -> X(rtob_ack1))
+[]((enq && !deq) -> X(!empty))
+[]((deq && !enq) -> X(!full))
+[]((enq <-> deq) -> ((full <-> X(full)) && (empty <-> X(empty))))
+[](<>(btor_req0 <-> rtob_ack0))
+[](<>(btor_req1 <-> rtob_ack1))
+
+#Goals
+!btos_ack0
+!btos_ack1
+!btor_req0
+!btor_req1
+!stateg7_0
+stateg7_1
+!enq
+// !deq
+!stateg12
+!slc0
+// []((!stob_req0 && X(stob_req0)) -> X(!btos_ack0))
+[]((!btos_ack0 && !stob_req0) -> X(!btos_ack0))
+[]((btos_ack0 && stob_req0) -> X(btos_ack0))
+[]((!btos_ack0) || (!btos_ack1))
+// []((!stob_req1 && X(stob_req1)) -> X(!btos_ack1))
+[]((!btos_ack1 && !stob_req1) -> X(!btos_ack1))
+[]((btos_ack1 && stob_req1) -> X(btos_ack1))
+[]((btor_req0 && !rtob_ack0) -> X(btor_req0))
+// []((!btor_req0) || (!btor_req1))
+[](rtob_ack0 -> X(!btor_req0))
+[]((btor_req1 && !rtob_ack1) -> X(btor_req1))
+[](rtob_ack1 -> X(!btor_req1))
+[]((btor_req0 && btor_req1) -> false)
+[]((!stateg7_1 && !btor_req0 && btor_req1) -> X(stateg7_1 && !stateg7_0))
+[]((stateg7_1 && btor_req0 && !btor_req1) -> X(!stateg7_1 && !stateg7_0))
+[]((!stateg7_1 && !btor_req0 && !btor_req1) -> X(!stateg7_1 && stateg7_0))
+[]((stateg7_1 && !btor_req0 && !btor_req1) -> X(stateg7_1 && stateg7_0))
+[]((!stateg7_1 && !stateg7_0 && btor_req0 && !btor_req1) -> X(!stateg7_1 && !stateg7_0))
+[]((stateg7_1 && !stateg7_0 && !btor_req0 && btor_req1) -> X(stateg7_1 && !stateg7_0))
+[]((!stateg7_1 && stateg7_0 && btor_req0) -> false)
+[]((stateg7_1 && stateg7_0 && btor_req1) -> false)
+[]((!btos_ack0 && X(btos_ack0)) -> X(enq))
+// []((!btos_ack0 && X(btos_ack0))  -> X(!slc0))
+[]((!btos_ack1 && X(btos_ack1)) -> X(enq))
+[]((!btos_ack1 && X(btos_ack1)) <-> X(slc0))
+[](((btos_ack0 || X(!btos_ack0)) &&   (btos_ack1 || X(!btos_ack1))) -> X(!enq))
+[]((rtob_ack0 && X(!rtob_ack0)) -> X(deq))
+[]((rtob_ack1 && X(!rtob_ack1)) -> X(deq))
+[](((!rtob_ack0 || X(rtob_ack0)) &&   (!rtob_ack1 || X(rtob_ack1))) -> X(!deq))
+[]((full && !deq) -> !enq)
+[](empty -> !deq)
+[]((!stateg12 && empty) -> X(!stateg12))
+[]((!stateg12 && deq  ) -> X(!stateg12))
+[]((!stateg12 && !empty && !deq) -> X(stateg12))
+[]((stateg12 && !deq  ) -> X(stateg12))
+[]((stateg12 && deq  ) -> X(!stateg12))
+[](<>(stob_req0 <-> btos_ack0))
+[](<>(stob_req1 <-> btos_ack1))
+[](<>(!stateg12))

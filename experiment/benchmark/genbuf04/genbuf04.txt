@@ -1,0 +1,97 @@
+#Domains Properities
+!stobreq0
+!stobreq1
+!stobreq2
+!stobreq3
+!rtoback0
+!rtoback1
+!full
+empty
+[]((stobreq0 && !btosack0) -> X(stobreq0))
+[](btosack0 -> X(!stobreq0))
+[]((stobreq1 && !btosack1) -> X(stobreq1))
+[](btosack1 -> X(!stobreq1))
+[]((stobreq2 && !btosack2) -> X(stobreq2))
+[](btosack2 -> X(!stobreq2))
+[]((stobreq3 && !btosack3) -> X(stobreq3))
+[](btosack3 -> X(!stobreq3))
+[](!btorreq0 -> X(!rtoback0))
+[]((btorreq0 && rtoback0) -> X(rtoback0))
+[](!btorreq1 -> X(!rtoback1))
+[]((btorreq1 && rtoback1) -> X(rtoback1))
+[]((enq && !deq) -> X(!empty))
+[]((deq && !enq) -> X(!full))
+[]((enq <-> deq) -> ((full <-> X(full)) && (empty <-> X(empty))))
+[](<>(btorreq0 <-> rtoback0))
+[](<>(btorreq1 <-> rtoback1))
+
+#Goals
+!btosack0
+!btosack1
+!btosack2
+!btosack3
+!btorreq0
+!btorreq1
+!stateg70
+stateg71
+!enq
+// !deq
+!stateg12
+!slc0
+!slc1
+// []((!stobreq0 && X(stobreq0)) -> X(!btosack0))
+[]((!btosack0 && !stobreq0) -> X(!btosack0))
+[]((btosack0 && stobreq0) -> X(btosack0))
+[]((!btosack0) || (!btosack1))
+[]((!btosack0) || (!btosack2))
+[]((!btosack0) || (!btosack3))
+// []((!stobreq1 && X(stobreq1)) -> X(!btosack1))
+[]((!btosack1 && !stobreq1) -> X(!btosack1))
+[]((btosack1 && stobreq1) -> X(btosack1))
+[]((!btosack1) || (!btosack2))
+[]((!btosack1) || (!btosack3))
+// []((!stobreq2 && X(stobreq2)) -> X(!btosack2))
+[]((!btosack2 && !stobreq2) -> X(!btosack2))
+[]((btosack2 && stobreq2) -> X(btosack2))
+[]((!btosack2) || (!btosack3))
+// []((!stobreq3 && X(stobreq3)) -> X(!btosack3))
+[]((!btosack3 && !stobreq3) -> X(!btosack3))
+[]((btosack3 && stobreq3) -> X(btosack3))
+[]((btorreq0 && !rtoback0) -> X(btorreq0))
+// []((!btorreq0) || (!btorreq1))
+[](rtoback0 -> X(!btorreq0))
+[]((btorreq1 && !rtoback1) -> X(btorreq1))
+[](rtoback1 -> X(!btorreq1))
+[]((btorreq0 && btorreq1) -> false)
+[]((!stateg71 && !btorreq0 && btorreq1) -> X(stateg71 && !stateg70))
+[]((stateg71 && btorreq0 && !btorreq1) -> X(!stateg71 && !stateg70))
+[]((!stateg71 && !btorreq0 && !btorreq1) -> X(!stateg71 && stateg70))
+[]((stateg71 && !btorreq0 && !btorreq1) -> X(stateg71 && stateg70))
+[]((!stateg71 && !stateg70 && btorreq0 && !btorreq1) -> X(!stateg71 && !stateg70))
+[]((stateg71 && !stateg70 && !btorreq0 && btorreq1) -> X(stateg71 && !stateg70))
+[]((!stateg71 && stateg70 && btorreq0) -> false)
+[]((stateg71 && stateg70 && btorreq1) -> false)
+[]((!btosack0 && X(btosack0)) -> X(enq))
+// []((!btosack0 && X(btosack0))  -> X(!slc0 && !slc1))
+[]((!btosack1 && X(btosack1)) -> X(enq))
+[]((!btosack1 && X(btosack1)) <-> X(slc0 && !slc1))
+[]((!btosack2 && X(btosack2)) -> X(enq))
+[]((!btosack2 && X(btosack2)) <-> X(!slc0 && slc1))
+[]((!btosack3 && X(btosack3)) -> X(enq))
+[]((!btosack3 && X(btosack3)) <-> X(slc0 && slc1))
+[](((btosack0 || X(!btosack0)) &&   (btosack1 || X(!btosack1)) &&   (btosack2 || X(!btosack2)) &&   (btosack3 || X(!btosack3))) -> X(!enq))
+[]((rtoback0 && X(!rtoback0)) -> X(deq))
+[]((rtoback1 && X(!rtoback1)) -> X(deq))
+[](((!rtoback0 || X(rtoback0)) &&   (!rtoback1 || X(rtoback1))) -> X(!deq))
+[]((full && !deq) -> !enq)
+[](empty -> !deq)
+[]((!stateg12 && empty) -> X(!stateg12))
+[]((!stateg12 && deq  ) -> X(!stateg12))
+[]((!stateg12 && !empty && !deq) -> X(stateg12))
+[]((stateg12 && !deq  ) -> X(stateg12))
+[]((stateg12 && deq  ) -> X(!stateg12))
+[](<>(stobreq0 <-> btosack0))
+[](<>(stobreq1 <-> btosack1))
+[](<>(stobreq2 <-> btosack2))
+[](<>(stobreq3 <-> btosack3))
+[](<>(!stateg12))
