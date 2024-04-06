@@ -1,0 +1,10 @@
+target/
+.idea/
+cnf.dimacs
+nuXmv.smv
+seq.txt
+model/
+LOGION.iml
+temp/
+src/main/java/command/
+src/main/java/org/apache/commons/lang/
